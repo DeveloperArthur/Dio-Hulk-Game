@@ -5,7 +5,7 @@ body {
 .hulk {
 	width: 90px;
 	height: 120px;
-	background-image: url(file:///C:/Users/Arthur/Desktop/hulk%20game/img/hulk.gif);
+	background-image: url(img/hulk.gif);
 	position: absolute;
 	bottom: 0;
 }
@@ -13,7 +13,7 @@ body {
 .tanks{
 	width: 90px;
 	height: 120px;
-	background-image: url(file:///C:/Users/Arthur/Desktop/hulk%20game/img/tank.png);
+	background-image: url(img/tank.png);
 	position: absolute;
 	bottom: 0;
 }
