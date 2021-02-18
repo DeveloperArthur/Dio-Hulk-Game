@@ -7,17 +7,17 @@ criarTanks();
 document.addEventListener('keyup', verificaSeApertouBotaoEspaco);
 
 const keyCodeDaTeclaEspaco = 32;
-function verificaSeApertouBotaoEspaco(event){
-	if(event.keyCode === keyCodeDaTeclaEspaco)
-		if(!estaPulando) pula();
+function verificaSeApertouBotaoEspaco(event) {
+	if (event.keyCode === keyCodeDaTeclaEspaco)
+		if (!estaPulando) pula();
 }
 
-function pula(){
+function pula() {
 	estaPulando = true;
 	let intervaloParaSubir = setInterval(() => {
-		if(hulkJaEstaNoAlto())
+		if (hulkJaEstaNoAlto())
 			descerHulk(intervaloParaSubir, posicao);
-		else{
+		else {
 			posicao += 20;
 			alteraPosicaoDoHulk();
 		}
@@ -25,68 +25,68 @@ function pula(){
 	posicao = 0;
 }
 
-function limpaIntervalo(intervalo){
+function limpaIntervalo(intervalo) {
 	clearInterval(intervalo);
 }
 
-function alteraPosicaoDoHulk(){
+function alteraPosicaoDoHulk() {
 	hulk.style.bottom = posicao + 'px';
 }
 
-function hulkJaEstaNoAlto(){
+function hulkJaEstaNoAlto() {
 	return posicao >= 150;
 }
 
-function hulkJaEstaEmBaixo(){
+function hulkJaEstaEmBaixo() {
 	return posicao <= 0;
 }
 
-function descerHulk(intervaloParaSubir){
+function descerHulk(intervaloParaSubir) {
 	limpaIntervalo(intervaloParaSubir);
 	let intervaloParaDescer = setInterval(() => {
-		if(hulkJaEstaEmBaixo()){
+		if (hulkJaEstaEmBaixo()) {
 			limpaIntervalo(intervaloParaDescer);
 			estaPulando = false;
-		}else{
+		} else {
 			posicao -= 20;
 			alteraPosicaoDoHulk();
 		}
 	}, 20);
 }
 
-function criarTanks(){
+function criarTanks() {
 	const tanks = document.createElement('div');
 	let posicaoDoTank = 1000;
 	let posicaoAleatoria = Math.random() * 6000;
-	
+
 	tanks.classList.add('tanks');
 	alteraPosicaoDoTank(tanks, posicaoDoTank)
 	background.appendChild(tanks);
-	
+
 	let intervalParaEsquerda = setInterval(() => {
-		if(tankSaiuDaTela(posicaoDoTank)){
+		if (tankSaiuDaTela(posicaoDoTank)) {
 			limpaIntervalo(intervalParaEsquerda);
 			background.removeChild(tanks);
-		} else if (tankColidiuComHulk(posicaoDoTank)){
+		} else if (tankColidiuComHulk(posicaoDoTank)) {
 			limpaIntervalo(intervalParaEsquerda);
 			window.location.href = "gameover.html";
-		}else{
+		} else {
 			posicaoDoTank -= 10;
 			alteraPosicaoDoTank(tanks, posicaoDoTank);
 		}
 	}, 20);
-	
+
 	setTimeout(criarTanks, posicaoAleatoria);
 }
 
-function alteraPosicaoDoTank(tanks, posicaoDoTank){
+function alteraPosicaoDoTank(tanks, posicaoDoTank) {
 	tanks.style.left = posicaoDoTank + 'px';
 }
 
-function tankSaiuDaTela(posicaoDoTank){
+function tankSaiuDaTela(posicaoDoTank) {
 	return posicaoDoTank < -60;
 }
 
-function tankColidiuComHulk(posicaoDoTank){
+function tankColidiuComHulk(posicaoDoTank) {
 	return posicaoDoTank > 0 && posicaoDoTank < 60 && posicao < 80;
 }
